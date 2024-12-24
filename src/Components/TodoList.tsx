@@ -3,13 +3,19 @@ import SingleTodo from "./SingleTodo";
 
 interface TodosProps {
   todos: Array<Todo>;
+  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
 
-const TodoList = ({ todos }: TodosProps) => {
+const TodoList = ({ todos, setTodos }: TodosProps) => {
   return (
     <div className="flex flex-col justify-center items-center mt-2">
       {todos?.map((todo) => (
-        <SingleTodo todo={todo.todo} key={todo.id} />
+        <SingleTodo
+          todo={todo}
+          key={todo.id}
+          todos={todos}
+          setTodos={setTodos}
+        />
       ))}
     </div>
   );
