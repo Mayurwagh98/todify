@@ -2,18 +2,23 @@ import React, { useState } from "react";
 import "./App.css";
 import InputField from "./Components/InputField"
 import { Todo } from "./models/models";
+import TodoList from "./Components/TodoList";
 
 const App: React.FC = () => {
   const [todo, setTodo] = useState<string>("");
-  const [Todos, setTodos] = useState<Array<Todo>>([]);
+  const [todos, setTodos] = useState<Array<Todo>>([]);
 
   const handleAddTodo = (e:React.FormEvent) =>{
     e.preventDefault()
-    console.log(todo)
+    if(todo){
+      setTodos([...todos,{id:Date.now(), todo, isDone:false}])
+      setTodo("")
+    }
   }
   return <div className="bg-slate-400 w-full h-full p-4">
       <h1 className="text-teal-400 text-3xl font-bold text-center mb-2">Todify</h1>
       <InputField todo={todo} setTodo={setTodo} handleAddTodo={handleAddTodo}/>
+      <TodoList todos={todos}/>
     </div>
 };
 
