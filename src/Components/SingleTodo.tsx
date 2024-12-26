@@ -42,7 +42,7 @@ const SingleTodo = ({ todo, todos, setTodos }: props) => {
   };
 
   return (
-    <div className="w-1/2 m-2 p-2 rounded-lg bg-orange-500 flex justify-between items-center shadow-xl">
+    <div className="m-2 p-2 rounded-lg bg-orange-500 flex justify-between items-center shadow-xl">
       <div className="w-1/2">
         {edit ? (
           <form onSubmit={(e) => handleEdit(e, todo.id)}>
