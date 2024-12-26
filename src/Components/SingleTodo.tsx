@@ -18,6 +18,11 @@ const SingleTodo = ({ todo, todos, setTodos }: props) => {
       )
     );
   };
+
+  const handleDelete = (id: number) => {
+    setTodos(todos?.filter((todo) => todo.id !== id));
+  };
+
   return (
     <div className="w-1/2 m-2 p-2 rounded-lg bg-orange-500 flex justify-between items-center shadow-xl">
       <div className="w-1/2">
@@ -33,7 +38,7 @@ const SingleTodo = ({ todo, todos, setTodos }: props) => {
         <span>
           <FiEdit3 className="text-2xl cursor-pointer" />
         </span>
-        <span>
+        <span onClick={() => handleDelete(todo.id)}>
           <MdDeleteOutline className="text-2xl cursor-pointer" />
         </span>
 
