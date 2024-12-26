@@ -3,14 +3,16 @@ import { MdDeleteOutline } from "react-icons/md";
 import { IoMdDoneAll } from "react-icons/io";
 import { Todo } from "../models/models";
 import { useEffect, useRef, useState } from "react";
+import { Draggable } from "react-beautiful-dnd";
 
 interface props {
+  index: number;
   todo: Todo;
   todos: Array<Todo>;
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
 
-const SingleTodo = ({ todo, todos, setTodos }: props) => {
+const SingleTodo = ({ index, todo, todos, setTodos }: props) => {
   const [edit, setEdit] = useState<boolean>(false);
   const [editDefaultVal, setEditDefaultVal] = useState<string>(todo.todo);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -42,41 +44,50 @@ const SingleTodo = ({ todo, todos, setTodos }: props) => {
   };
 
   return (
-    <div className="m-2 p-2 rounded-lg bg-orange-500 flex justify-between items-center shadow-xl">
-      <div className="w-1/2">
-        {edit ? (
-          <form onSubmit={(e) => handleEdit(e, todo.id)}>
-            <input
-              type="text"
-              onChange={(e) => setEditDefaultVal(e.target.value)}
-              ref={inputRef}
-              value={editDefaultVal}
-              className="m-2 p-2 list-none text-black outline-none rounded-sm"
-            />
-          </form>
-        ) : (
-          <li
-            className={`m-2 p-2 list-none text-white ${
-              todo.isDone ? "line-through" : ""
-            }`}
-          >
-            {todo.todo}
-          </li>
-        )}
-      </div>
-      <div className="flex justify-between items-center w-[15%] pr-2">
-        <span onClick={() => setEdit((prev) => !prev)}>
-          <FiEdit3 className="text-2xl cursor-pointer" />
-        </span>
-        <span onClick={() => handleDelete(todo.id)}>
-          <MdDeleteOutline className="text-2xl cursor-pointer" />
-        </span>
+    <Draggable draggableId={todo.id.toString()} index={index}>
+      {(provided) => (
+        <div
+          className="m-2 p-2 rounded-lg bg-orange-500 flex justify-between items-center shadow-xl"
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
+          <div className="w-1/2">
+            {edit ? (
+              <form onSubmit={(e) => handleEdit(e, todo.id)}>
+                <input
+                  type="text"
+                  onChange={(e) => setEditDefaultVal(e.target.value)}
+                  ref={inputRef}
+                  value={editDefaultVal}
+                  className="m-2 p-2 list-none text-black outline-none rounded-sm"
+                />
+              </form>
+            ) : (
+              <li
+                className={`m-2 p-2 list-none text-white ${
+                  todo.isDone ? "line-through" : ""
+                }`}
+              >
+                {todo.todo}
+              </li>
+            )}
+          </div>
+          <div className="flex justify-between items-center w-[15%] pr-2">
+            <span onClick={() => setEdit((prev) => !prev)}>
+              <FiEdit3 className="text-2xl cursor-pointer" />
+            </span>
+            <span onClick={() => handleDelete(todo.id)}>
+              <MdDeleteOutline className="text-2xl cursor-pointer" />
+            </span>
 
-        <span onClick={() => handleComplete(todo.id)}>
-          <IoMdDoneAll className="text-2xl cursor-pointer" />
-        </span>
-      </div>
-    </div>
+            <span onClick={() => handleComplete(todo.id)}>
+              <IoMdDoneAll className="text-2xl cursor-pointer" />
+            </span>
+          </div>
+        </div>
+      )}
+    </Draggable>
   );
 };
 
