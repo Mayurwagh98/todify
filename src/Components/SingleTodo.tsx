@@ -3,8 +3,6 @@ import { MdDeleteOutline } from "react-icons/md";
 import { IoMdDoneAll } from "react-icons/io";
 import { Todo } from "../models/models";
 import { useEffect, useRef, useState } from "react";
-import { useDraggable } from "@dnd-kit/core";
-import { CSS } from "@dnd-kit/utilities";
 
 interface props {
   index: number;
@@ -13,18 +11,15 @@ interface props {
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
 }
 
-const SingleTodo = ({ index, todo, todos, setTodos }: props) => {
+const SingleTodo = ({ todo, todos, setTodos }: props) => {
   const [edit, setEdit] = useState<boolean>(false);
   const [editDefaultVal, setEditDefaultVal] = useState<string>(todo.todo);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: index,
-  });
-  const style = {
-    transform: CSS.Translate.toString(transform),
-  };
+
   useEffect(() => {
-    inputRef.current?.focus();
+    if (edit) {
+      inputRef.current?.focus();
+    }
   }, [edit]);
 
   const handleComplete = (id: number) => {
@@ -52,10 +47,7 @@ const SingleTodo = ({ index, todo, todos, setTodos }: props) => {
   return (
     <div
       className="m-2 p-2 rounded-lg bg-orange-500 flex justify-between items-center shadow-xl"
-      ref={setNodeRef}
-      style={style}
-      {...listeners}
-      {...attributes}
+      draggable
     >
       <div className="w-1/2">
         {edit ? (

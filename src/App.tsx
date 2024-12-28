@@ -30,7 +30,6 @@ const App: React.FC = () => {
         setCompletedTodos={setCompletedTodos}
       />
     </div>
-    // <DragDropList />
   );
 };
 
