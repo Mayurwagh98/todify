@@ -9,9 +9,10 @@ interface props {
   todo: Todo;
   todos: Array<Todo>;
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+  setActiveCard: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SingleTodo = ({ todo, todos, setTodos }: props) => {
+const SingleTodo = ({ todo, todos, setTodos, setActiveCard }: props) => {
   const [edit, setEdit] = useState<boolean>(false);
   const [editDefaultVal, setEditDefaultVal] = useState<string>(todo.todo);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -48,6 +49,8 @@ const SingleTodo = ({ todo, todos, setTodos }: props) => {
     <div
       className="m-2 p-2 rounded-lg bg-orange-500 flex justify-between items-center shadow-xl"
       draggable
+      onDragStart={() => setActiveCard(todo.id.toString())}
+      onDragEnd={() => setActiveCard("")}
     >
       <div className="w-1/2">
         {edit ? (

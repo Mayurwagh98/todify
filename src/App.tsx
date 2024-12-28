@@ -3,11 +3,13 @@ import "./App.css";
 import InputField from "./Components/InputField";
 import { Todo } from "./models/models";
 import TodoList from "./Components/TodoList";
+import DragDropList from "./Components/DragList";
 
 const App: React.FC = () => {
   const [todo, setTodo] = useState<string>("");
   const [todos, setTodos] = useState<Todo[]>([]);
   const [completedTodos, setCompletedTodos] = useState<Todo[]>([]);
+  const [activeCard, setActiveCard] = useState<string>("");
 
   const handleAddTodo = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,7 +30,9 @@ const App: React.FC = () => {
         setTodos={setTodos}
         completedTodos={completedTodos}
         setCompletedTodos={setCompletedTodos}
+        setActiveCard={setActiveCard}
       />
+      <DragDropList />
     </div>
   );
 };

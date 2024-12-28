@@ -6,6 +6,7 @@ interface TodosProps {
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
   completedTodos: Todo[];
   setCompletedTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+  setActiveCard: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const TodoList = ({
@@ -13,6 +14,7 @@ const TodoList = ({
   setTodos,
   completedTodos,
   setCompletedTodos,
+  setActiveCard,
 }: TodosProps) => {
   return (
     <div className="flex justify-center items-center mt-2">
@@ -25,6 +27,7 @@ const TodoList = ({
             key={todo.id}
             todos={todos}
             setTodos={setTodos}
+            setActiveCard={setActiveCard}
           />
         ))}
       </div>
@@ -38,6 +41,7 @@ const TodoList = ({
             todo={todo}
             key={todo.id}
             setTodos={setCompletedTodos}
+            setActiveCard={setActiveCard}
           />
         ))}
       </div>
