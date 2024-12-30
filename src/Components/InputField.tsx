@@ -1,14 +1,15 @@
-
-
-interface TodoProps{
-  todo:string,
-  setTodo:React.Dispatch<React.SetStateAction<string>>,
-  handleAddTodo:(e:React.FormEvent) => void
+interface TodoProps {
+  todo: string;
+  setTodo: React.Dispatch<React.SetStateAction<string>>;
+  handleAddTodo: (e: React.FormEvent) => void;
 }
 
 const InputField = ({ todo, setTodo, handleAddTodo }: TodoProps) => {
   return (
-    <form className="w-[95%] flex justify-center items-center relative" onSubmit={handleAddTodo}>
+    <form
+      className="w-[95%] flex justify-center items-center relative"
+      onSubmit={handleAddTodo}
+    >
       <input
         type="text"
         placeholder="Enter your todo"
