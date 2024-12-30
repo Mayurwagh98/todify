@@ -3,7 +3,6 @@ import "./App.css";
 import InputField from "./Components/InputField";
 import { Todo } from "./models/models";
 import TodoList from "./Components/TodoList";
-import DragDropList from "./Components/DragList";
 
 const App: React.FC = () => {
   const [todo, setTodo] = useState<string>("");
@@ -32,7 +31,6 @@ const App: React.FC = () => {
         setCompletedTodos={setCompletedTodos}
         setActiveCard={setActiveCard}
       />
-      <DragDropList />
     </div>
   );
 };
